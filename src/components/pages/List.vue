@@ -19,20 +19,32 @@
   </li>
   
 </ol>
-</template> x
+</template> 
 
 <script>
+import { toRefs, onMounted } from 'vue';
+
     export default {
-        props: ["todos"],
-        emits:['HapusTodo', 'DoneTodo'],
-        methods:{
-            hapusTodo(index){
-                this.$emit('HapusTodo', index)
-            },
-            doneTodo(index) {
-                this.$emit('DoneTodo', index)
+        props:{
+            todos:{
+                type:Array,
+                default:[]
             }
         },
-        
+        setup(props, {emit}){
+
+            const hapusTodo = (index) => {
+                emit('hapusTodo', index)
+            }
+
+            const doneTodo = (index) => {
+                emit('doneTodo', index)
+            }
+
+            return {
+                hapusTodo,
+                doneTodo
+            }
+        }
     }
 </script>

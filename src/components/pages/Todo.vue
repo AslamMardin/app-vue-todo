@@ -6,72 +6,94 @@
                 <input type="text" v-model="todo" placeholder="masukan kata" class="form-control" @keyup.enter="addTodo"/>
             </div>
             <hr>
-            <List @DoneTodo="doneTodo" @HapusTodo="hapusTodo" :todos="todos" />
+            <List @doneTodo="doneTodo" @hapusTodo="hapusTodo" :todos="list" />
             {{ getTotalTodo }}
         </div>
     </div>
 </template>
 
 <script>
+import { computed, onMounted, reactive, ref, toRefs, onBeforeMount } from 'vue';
 import List from './List.vue'
 export default {
     components: {
         List
     },
-    data(){
-        return {
-            todos : [],
-            todo: "",
-        }
-    },
-    mounted(){
-        this.todos.push(JSON.parse(localStorage.getItem('todos')))
-    },
-    computed:{
-        getTotalTodo(){
-            return "Total List : " + this.todos.length
-        }
-    }, 
-    methods:{
-        addTodo(){
-            if(this.todo != "") {
-                this.todos.push({
-                    nama:this.todo,
+    setup() {
+        const todo = ref("");
+        const todos = reactive({
+            list:[]
+        });
+
+        const addTodo = ()  => {
+            console.log('sas')
+            if(todo.value != "") {
+                todos.list.push({
+                    nama:todo.value,
                     isDone:false,
                     isLoading:false
-                });
-                this.todo = ''
-                this.saveToLocalStorage()
+                })
+                todo.value = ''
+                console.log(todos.list)
+                saveToLocalStorage()
             }else {
                 alert('masukan katanya broo')
             }
-        },
-        hapusTodo(index){
-           
-                const newTodo = this.todos.filter((todo,i ) => {
+
+        }
+
+        const hapusTodo = (index) => {
+            const newTodo = todos.list.filter((todo,i ) => {
                     if(i == index){
                         todo.isLoading = true
                     }
                         return i != index
                 })
                 setTimeout(() => {
-                    this.todos = newTodo
-                    this.saveToLocalStorage()
+                    todos.list = newTodo
+                    saveToLocalStorage()
                 }, 1000)
-           
-        },
-        doneTodo(index){
-            const newTodo = this.todos.filter((todo, i) => {
+        }
+
+        const doneTodo = (index) => {
+            const newTodo = todos.list.filter((todo, i) => {
                 if(i == index){
                     todo.isDone = (todo.isDone) ? false : true;
                 }
                 return todo
             })
-            this.saveToLocalStorage()
-        },
-        saveToLocalStorage(){
-            localStorage.setItem('todos', JSON.stringify(this.todos));
+            saveToLocalStorage()
         }
-    }
+
+        const saveToLocalStorage = () => {
+            localStorage.setItem('todos', JSON.stringify(todos.list));
+        }
+
+        onMounted(() => {
+            // if(todo.list == null) {
+            //     todos.list = []
+            // }else {
+            //     todos.list = JSON.parse(localStorage.getItem('todos'));
+            // }
+
+            const items = localStorage.getItem('todos');
+            todos.list = items ? JSON.parse(items) : []
+        })
+       
+        const getTotalTodo = computed(() => {
+                return "Total List : " + todos.list.length
+        })
+        return {
+            todo,
+            ...toRefs(todos),
+            getTotalTodo,
+            addTodo,
+            hapusTodo,
+            doneTodo,
+            saveToLocalStorage
+        }
+    },
+    
+ 
 }
 </script>
