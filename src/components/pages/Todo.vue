@@ -1,13 +1,16 @@
 <template>
     <div class="row">
         <div class="col-12">
-            <h1>Aplikasi Todo Simple</h1>
+            <h1>Agenda Hari Ini</h1>
             <div class="my-3">
                 <input type="text" v-model="todo" placeholder="masukan kata" class="form-control" @keyup.enter="addTodo"/>
             </div>
             <hr>
             <List @doneTodo="doneTodo" @hapusTodo="hapusTodo" :todos="list" />
             {{ getTotalTodo }}
+            <p>
+                <i>Product By <b>Aslam Mardin, S.Kom</b></i>
+            </p>
         </div>
     </div>
 </template>
@@ -81,7 +84,7 @@ export default {
         })
        
         const getTotalTodo = computed(() => {
-                return "Total List : " + todos.list.length
+                return "Total Agenda : " + todos.list.length
         })
         return {
             todo,

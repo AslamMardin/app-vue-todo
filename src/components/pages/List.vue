@@ -3,8 +3,7 @@
   <li class="list-group-item d-flex justify-content-between align-items-start" v-for="(todo, i) in todos" :key="todo">
     <div class="ms-2 me-auto">
       <div class="fw-bold">
-        <del v-if="todo.isDone" :class="{'text-danger':todo.isDone}">{{ todo.nama }}</del>
-        <span v-else>{{ todo.nama }}</span>
+        <span :class="{'text-success':todo.isDone}">{{ todo.nama }}</span>
         </div>
     </div>
     <span style="cursor: pointer;" @click="hapusTodo(i)" class="badge bg-danger rounded-pill">

@@ -1,12 +1,12 @@
 <template>
-  <HelloWorld />
+  <Todo />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Todo from './components/pages/Todo.vue';
 export default {
   components: {
-    HelloWorld
+    Todo
   }
 }
 </script>
