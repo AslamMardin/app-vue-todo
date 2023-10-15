@@ -84,7 +84,7 @@ export default {
         })
        
         const getTotalTodo = computed(() => {
-                return "Total Agenda : " + todos.list.length
+                return "Total Tugas : " + todos.list.length
         })
         return {
             todo,
