@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12">
-            <h1>Agenda Hari Ini</h1>
+            <h3>Daftar Tugas UHM XVII</h3>
             <div class="my-3">
                 <input type="text" v-model="todo" placeholder="masukan kata" class="form-control" @keyup.enter="addTodo"/>
             </div>
