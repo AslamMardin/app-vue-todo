@@ -8,6 +8,8 @@
             <hr>
             <List @doneTodo="doneTodo" @hapusTodo="hapusTodo" :todos="list" />
             {{ getTotalTodo }}
+
+            <p><b>Note: Tulisan  Hijau </b>Berarti (Selesai) </p>
             <p>
                 <i>Product By <b>Aslam Mardin, S.Kom</b></i>
             </p>
